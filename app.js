@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -8,7 +7,7 @@ const ExpressError = require("./utils/expressError.js");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate"); // I forget what it does
 const sessions = require("express-session");
-const MongoStore = require("connect-mongo").default;
+const { MongoStore } = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -20,8 +19,9 @@ const User = require("./models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const tripRouter = require("./routes/trip.js");
 
-const MONGODB_URL = "mongodb://127.0.0.1:27017/Havenly";
+// const MONGODB_URL = "mongodb://127.0.0.1:27017/Havenly";
 const dbUrl = process.env.ATLASDB_URL;
 
 async function main() {
@@ -77,6 +77,7 @@ app.use((req, res, next) => {
     res.locals.del = req.flash("delete");
     res.locals.error = req.flash("error");
     res.locals.curUser = req.user;
+    console.log("current user:", req.user);
     next();
 });
 
@@ -98,6 +99,7 @@ app.get("/demoUser", async (req, res, next) => {
 app.use("/", userRouter);
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
+app.use("/trips", tripRouter);
 
 
 app.use((req, res, next) => {

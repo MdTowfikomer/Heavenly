@@ -34,6 +34,11 @@ const listingSchema = new Schema({
         type: String,
         required: true,
     },
+    category: {
+        type: String,
+        enum: ["beach", "mountains", "forest", "city", "desert", "island", "lake", "river", "valley", "canyon", "cave", "waterfall", "glacier", "volcano", "jungle", "swamp", "wetland", "grassland", "savanna", "tundra", "arctic", "antarctic", "ocean", "sea", "bay", "gulf", "strait", "channel", "fjord", "lagoon", "estuary", "delta", "peninsula", "archipelago", "island", "atoll", "reef", "mountain", "hill", "plateau", "plain", "valley", "canyon", "cave", "waterfall", "glacier", "volcano", "jungle", "swamp", "wetland", "grassland", "savanna", "tundra", "arctic", "antarctic", "ocean", "sea", "bay", "gulf", "strait", "channel", "fjord", "lagoon", "estuary", "delta", "peninsula", "archipelago", "island", "atoll", "reef"],
+        required: true,
+    },
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: "Review",

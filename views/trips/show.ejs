@@ -1,0 +1,134 @@
+<% layout("/layouts/boilerPlate.ejs") %>
+    <div class="row mt-3">
+        <div class="col-8 offset-2">
+            <h3>Your Trip to <%= trip.destination %>
+            </h3>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= trip.days %> Days - <%= trip.travelers %> Trip
+                    </h5>
+                    <p class="card-text">
+                        <strong>Budget:</strong>
+                        <%= trip.budget %><br>
+                    </p>
+                    <hr>
+
+                    <% if(trip.generatedPlan) { %>
+                        <% const plan=trip.generatedPlan; %>
+
+                            <% if(plan.hotels && plan.hotels.length> 0) { %>
+                                <h4><i class="fa-solid fa-hotel"></i> Recommended Hotels</h4>
+                                <div class="row">
+                                    <% for(let hotel of plan.hotels) { %>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card h-100">
+                                                <% if(hotel.hotelImageUrl && hotel.hotelImageUrl.startsWith('http')) {
+                                                    %>
+                                                    <img src="<%= hotel.hotelImageUrl %>" class="card-img-top"
+                                                        alt="<%= hotel.name %>" onerror="this.style.display='none'">
+                                                    <% } %>
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                <%= hotel.name %>
+                                                            </h5>
+                                                            <% if(hotel.address) { %>
+                                                                <h6 class="card-subtitle mb-2 text-muted">
+                                                                    <%= hotel.address %>
+                                                                </h6>
+                                                                <% } %>
+                                                                    <p class="card-text">
+                                                                        <% if(hotel.description) { %>
+                                                                            <%= hotel.description %><br><br>
+                                                                                <% } %>
+                                                                                    <strong>Price:</strong>
+                                                                                    <%= hotel.price %><br>
+                                                                                        <strong>Rating:</strong>
+                                                                                        <%= hotel.rating %>
+                                                                    </p>
+                                                        </div>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                </div>
+                                <hr>
+                                <% } %>
+
+                                    <% if(plan.itinerary && plan.itinerary.length> 0) { %>
+                                        <h4><i class="fa-solid fa-calendar-days"></i> Itinerary</h4>
+                                        <div class="accordion" id="itineraryAccordion">
+                                            <% for(let dayPlan of plan.itinerary) { %>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="heading<%= dayPlan.day %>">
+                                                        <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#collapse<%= dayPlan.day %>"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapse<%= dayPlan.day %>">
+                                                            <strong>Day <%= dayPlan.day %></strong>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapse<%= dayPlan.day %>"
+                                                        class="accordion-collapse collapse"
+                                                        aria-labelledby="heading<%= dayPlan.day %>">
+                                                        <div class="accordion-body">
+                                                            <ul class="list-group list-group-flush">
+                                                                <% for(let activity of dayPlan.activities) { %>
+                                                                    <li class="list-group-item">
+                                                                        <div
+                                                                            class="d-flex w-100 justify-content-between">
+                                                                            <h5 class="mb-1">
+                                                                                <%= activity.time %>: <%=
+                                                                                        activity.activity %>
+                                                                            </h5>
+                                                                            <% if(activity.place) { %>
+                                                                                <small
+                                                                                    class="badge bg-secondary align-self-center">
+                                                                                    <%= activity.place %>
+                                                                                </small>
+                                                                                <% } %>
+                                                                        </div>
+                                                                        <% if(activity.details) { %>
+                                                                            <p class="mb-1">
+                                                                                <%= activity.details %>
+                                                                            </p>
+                                                                            <% } %>
+                                                                                <small class="text-muted">
+                                                                                    <% if(activity.ticketPricing) { %>
+                                                                                        Ticket: <%=
+                                                                                            activity.ticketPricing %> |
+                                                                                            <% } %>
+                                                                                                <% if(activity.travelTime)
+                                                                                                    { %> Travel: <%=
+                                                                                                        activity.travelTime
+                                                                                                        %> | <% } %>
+                                                                                                            <% if(activity.bestTimeToVisit)
+                                                                                                                { %>
+                                                                                                                Best
+                                                                                                                Time:
+                                                                                                                <%= activity.bestTimeToVisit
+                                                                                                                    %>
+                                                                                                                    <% }
+                                                                                                                        %>
+                                                                                </small>
+                                                                    </li>
+                                                                    <% } %>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+                                        </div>
+                                        <% } %>
+
+                                            <% } else { %>
+                                                <div class="alert alert-warning">
+                                                    Plan details are missing or incomplete.
+                                                </div>
+                                                <% } %>
+
+                </div>
+            </div>
+            <a href="/trips/new" class="btn btn-dark mt-3 mb-3">Plan Another Trip</a>
+        </div>
+    </div>

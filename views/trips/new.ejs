@@ -1,0 +1,161 @@
+<% layout("/layouts/boilerPlate.ejs") %>
+
+    <div class="row mt-3">
+        <div class="col-8 offset-2">
+            <div class="header-section text-center">
+                <h3>Tell us your travel preferences</h3>
+                <p>Just provide some basic information, and our trip planner will generate a customized itinerary based
+                    on your preferences.</p>
+            </div>
+
+            <form action="/trips" method="post" class="needs-validation" id="tripForm" novalidate>
+                <!-- Field 1: Destination -->
+                <div class="mb-4">
+                    <label for="destination" class="form-label fw-bold">What is destination?</label>
+                    <input name="trip[destination]" id="destination" placeholder="Enter destination" type="text"
+                        class="form-control form-control-lg" required>
+                    <div class="invalid-feedback">Please provide a destination.</div>
+                </div>
+
+                <!-- Field 2: Number of Days -->
+                <div class="mb-4">
+                    <label for="days" class="form-label fw-bold">How many days are you planning to stay?</label>
+                    <input name="trip[days]" id="days" placeholder="Enter days" type="number" min="1" step="1"
+                        class="form-control form-control-lg" required>
+                    <div class="invalid-feedback">Please provide a valid number of days (positive integer).</div>
+                </div>
+
+                <!-- Section 3: Budget Selection -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">What is your Budget?</label>
+                    <div class="row g-3 card-radio-group" id="budgetGroup">
+                        <div class="col-md-4">
+                            <label class="selection-card text-center d-block" for="budgetLow">
+                                <input type="radio" name="trip[budget]" value="Low" id="budgetLow"
+                                    class="card-radio-input" required>
+                                <i class="fa-solid fa-wallet"></i>
+                                <div class="card-title">Cheapest</div>
+                                <div class="card-description">Stay conscious of costs</div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="selection-card text-center d-block" for="budgetMedium">
+                                <input type="radio" name="trip[budget]" value="Medium" id="budgetMedium"
+                                    class="card-radio-input">
+                                <i class="fa-solid fa-gauge-high"></i>
+                                <div class="card-title">Moderate</div>
+                                <div class="card-description">Keep cost on the average side</div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="selection-card text-center d-block" for="budgetHigh">
+                                <input type="radio" name="trip[budget]" value="High" id="budgetHigh"
+                                    class="card-radio-input">
+                                <i class="fa-solid fa-gem"></i>
+                                <div class="card-title">Luxurious</div>
+                                <div class="card-description">Don’t worry about the cost</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Travel Companions -->
+                <div class="mb-5">
+                    <label class="form-label fw-bold">Who do you plan on traveling with on your next adventure?</label>
+                    <div class="row g-3 card-radio-group" id="travelerGroup">
+                        <div class="col-md-3">
+                            <label class="selection-card text-center d-block" for="travelerSolo">
+                                <input type="radio" name="trip[travelers]" value="Solo" id="travelerSolo"
+                                    class="card-radio-input" required>
+                                <i class="fa-solid fa-user"></i>
+                                <div class="card-title">Just Me</div>
+                                <div class="card-description">A solo traveler in exploration</div>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="selection-card text-center d-block" for="travelerCouple">
+                                <input type="radio" name="trip[travelers]" value="Couple" id="travelerCouple"
+                                    class="card-radio-input">
+                                <i class="fa-solid fa-user-group"></i>
+                                <div class="card-title">A couple</div>
+                                <div class="card-description">Two travelers in tandem</div>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="selection-card text-center d-block" for="travelerFamily">
+                                <input type="radio" name="trip[travelers]" value="Family" id="travelerFamily"
+                                    class="card-radio-input">
+                                <i class="fa-solid fa-people-roof"></i>
+                                <div class="card-title">Family</div>
+                                <div class="card-description">A group of fun loving adventure</div>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="selection-card text-center d-block" for="travelerFriends">
+                                <input type="radio" name="trip[travelers]" value="Friends" id="travelerFriends"
+                                    class="card-radio-input">
+                                <i class="fa-solid fa-users"></i>
+                                <div class="card-title">Friends</div>
+                                <div class="card-description">A group of fun loving adventure</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mb-5">
+                    <button class="btn btn-dark btn-generate add-btn" id="generateBtn" disabled>Generate Trip</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("tripForm");
+            const generateBtn = document.getElementById("generateBtn");
+            const destinationInput = document.getElementById("destination");
+            const daysInput = document.getElementById("days");
+            const radioInputs = form.querySelectorAll('input[type="radio"]');
+            const cards = document.querySelectorAll('.selection-card');
+
+            const validateForm = () => {
+                const isDestinationFilled = destinationInput.value.trim() !== "";
+                const isDaysFilled = daysInput.value !== "" && parseInt(daysInput.value) > 0;
+                const isBudgetSelected = !!form.querySelector('input[name="trip[budget]"]:checked');
+                const isTravelerSelected = !!form.querySelector('input[name="trip[travelers]"]:checked');
+
+                generateBtn.disabled = !(isDestinationFilled && isDaysFilled && isBudgetSelected && isTravelerSelected);
+            };
+
+            // Handle Card Selection Visuals
+            cards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const input = this.querySelector('input');
+                    const groupName = input.name;
+
+                    // Remove active class from other cards in the same group
+                    document.querySelectorAll(`input[name="${groupName}"]`).forEach(radio => {
+                        radio.parentElement.classList.remove('active');
+                    });
+
+                    // Add active class to this card
+                    this.classList.add('active');
+                    validateForm();
+                });
+            });
+
+            // Trigger validation on input
+            destinationInput.addEventListener('input', validateForm);
+            daysInput.addEventListener('input', validateForm);
+            radioInputs.forEach(radio => radio.addEventListener('change', validateForm));
+
+            // Bootstrap validation
+            form.addEventListener('submit', (event) => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    </script>

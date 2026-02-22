@@ -15,26 +15,28 @@ body {
 
 
 /* Navbar */
-.navbar{
+.navbar {
     height: 5rem;
     background-color: white;
 }
 
-.fa-compass{
+.fa-compass {
     color: #fe424d;
     font-size: 2rem;
 }
 
-.nav-link{
+.nav-link {
     color: #222222 !important;
 }
-   
+
 footer {
     margin-top: auto;
 }
 
 /* Footer */
-.f-info-links, .f-info-socials, .f-info-brand{
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
     text-decoration: none;
     width: 100%;
     display: flex;
@@ -42,20 +44,21 @@ footer {
     justify-content: center;
 }
 
-.f-info-links a{
+.f-info-links a {
     text-decoration: none;
 }
-.f-info-links a:hover{
+
+.f-info-links a:hover {
     text-decoration: underline;
 }
 
-.f-info-socials i{
+.f-info-socials i {
     font-size: 1.5rem;
     margin-right: 1rem;
 }
 
-.f-info{
-    height: 8rem;   
+.f-info {
+    height: 8rem;
     background-color: #ebebeb;
     display: flex;
     flex-wrap: wrap;
@@ -65,64 +68,132 @@ footer {
 }
 
 /* Cards */
-.listing-card{
+.listing-card {
     border: none !important;
-    margin-bottom: 2rem;   
+    margin-bottom: 2rem;
 }
 
-.card-img-top{
+.card-img-top {
     border-radius: 1 rem !important;
     width: 100% !important;
     object-fit: cover !important;
 }
 
-.card-body{
+.card-body {
     padding: 0rem;
 }
 
-.card-text{
+.card-text {
     font-weight: 400 !important;
 }
 
-.listing-links{
+.listing-links {
     text-decoration: none;
 }
 
 
 /* Overlay or Card Effect */
-.card-img-overlay{
+.card-img-overlay {
     opacity: 0;
 }
-.card-img-overlay:hover{
+
+.card-img-overlay:hover {
     opacity: 0.2;
     background-color: white;
 }
 
 
 /* New page */
-.add-btn{
+.add-btn {
     background-color: #fe424d !important;
     border: none !important;
 }
 
 
 /* Edit page */
-.edit-btn{
+.edit-btn {
     background-color: #fe424d !important;
-    border: none !important;   
+    border: none !important;
 }
 
 /* show page */
-.show-img{
+.show-img {
     height: 30vh;
 
 }
-.btns{
+
+.btns {
     display: flex;
 }
 
 
-.show-card{
+.show-card {
     padding-left: 0;
     padding-right: 0;
+}
+
+/* Trip Planner Custom Styles */
+.selection-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #ddd !important;
+    border-radius: 12px !important;
+    padding: 1.5rem;
+    height: 100%;
+}
+
+.selection-card:hover {
+    border-color: #fe424d !important;
+    background-color: #fff5f6;
+}
+
+.selection-card.active {
+    border-color: #fe424d !important;
+    background-color: #fff5f6;
+    box-shadow: 0 4px 12px rgba(254, 66, 77, 0.1);
+}
+
+.selection-card i {
+    font-size: 1.5rem;
+    color: #fe424d;
+    margin-bottom: 0.75rem;
+}
+
+.selection-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.selection-card .card-description {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.card-radio-input {
+    display: none;
+}
+
+.header-section {
+    margin-bottom: 2.5rem;
+}
+
+.header-section h3 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.header-section p {
+    color: #666;
+}
+
+.btn-generate {
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.btn-generate:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed;
 }

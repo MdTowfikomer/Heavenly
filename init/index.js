@@ -1,5 +1,5 @@
 const path = require("path");
-require("dotenv").config();
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const mongoose = require("mongoose");
 const initData = require("./data");
 const Listing = require("../models/listing");
@@ -14,16 +14,16 @@ async function main() {
 }
 
 main()
-.then(()=>{
-    console.log("connected to index.js Successfully");
-})
-.catch((err)=>{
-    console.log(err);
-});
+    .then(() => {
+        console.log("connected to index.js Successfully");
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
-const initDB = async () =>{
+const initDB = async () => {
     await Listing.deleteMany({});
-    await Listing.insertMany(initData.data.map((obj) => ({...obj, owner: "6989a600e27396cd85a21565"})));
+    await Listing.insertMany(initData.data.map((obj) => ({ ...obj, owner: "6989a600e27396cd85a21565" })));
     console.log("Data was initialized");
 }
 
