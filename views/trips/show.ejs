@@ -1,134 +1,218 @@
 <% layout("/layouts/boilerPlate.ejs") %>
-    <div class="row mt-3">
-        <div class="col-8 offset-2">
-            <h3>Your Trip to <%= trip.destination %>
-            </h3>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <%= trip.days %> Days - <%= trip.travelers %> Trip
-                    </h5>
-                    <p class="card-text">
-                        <strong>Budget:</strong>
-                        <%= trip.budget %><br>
-                    </p>
-                    <hr>
+    <div class="container mt-4 mb-5">
 
-                    <% if(trip.generatedPlan) { %>
-                        <% const plan=trip.generatedPlan; %>
+        <!-- Hero Banner Section -->
+        <div class="position-relative mb-4">
+            <img src="<%= trip.destinationImage %>" class="img-fluid w-100 rounded-4 shadow-sm hero-img"
+                alt="<%= trip.destination %>">
 
-                            <% if(plan.hotels && plan.hotels.length> 0) { %>
-                                <h4><i class="fa-solid fa-hotel"></i> Recommended Hotels</h4>
-                                <div class="row">
-                                    <% for(let hotel of plan.hotels) { %>
-                                        <div class="col-md-4 mb-3">
-                                            <div class="card h-100">
-                                                <% if(hotel.hotelImageUrl && hotel.hotelImageUrl.startsWith('http')) {
-                                                    %>
-                                                    <img src="<%= hotel.hotelImageUrl %>" class="card-img-top"
-                                                        alt="<%= hotel.name %>" onerror="this.style.display='none'">
-                                                    <% } %>
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">
-                                                                <%= hotel.name %>
-                                                            </h5>
-                                                            <% if(hotel.address) { %>
-                                                                <h6 class="card-subtitle mb-2 text-muted">
-                                                                    <%= hotel.address %>
-                                                                </h6>
-                                                                <% } %>
-                                                                    <p class="card-text">
-                                                                        <% if(hotel.description) { %>
-                                                                            <%= hotel.description %><br><br>
-                                                                                <% } %>
-                                                                                    <strong>Price:</strong>
-                                                                                    <%= hotel.price %><br>
-                                                                                        <strong>Rating:</strong>
-                                                                                        <%= hotel.rating %>
-                                                                    </p>
-                                                        </div>
+            <div
+                class="mt-3 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+                <div>
+                    <h1 class="fw-bold mb-2">Trip to <%= trip.destination %>
+                    </h1>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+                            <i class="fa-solid fa-calendar-day me-1"></i>
+                            <%= trip.days %> Days
+                        </span>
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+                            <i class="fa-solid fa-wallet me-1"></i>
+                            <%= trip.budget %> Budget
+                        </span>
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+                            <i class="fa-solid fa-users me-1"></i>
+                            <%= trip.travelers %> Traveler(s)
+                        </span>
+                    </div>
+                </div>
+                <button class="btn btn-outline-dark rounded-pill px-4 w-100 w-md-auto" id="shareButton">
+                    <i class="fa-solid fa-share-nodes me-2"></i> Share Trip
+                </button>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <% if(trip.generatedPlan) { %>
+            <% const plan=trip.generatedPlan; %>
+
+                <!-- Hotel Recommendation Section -->
+                <% if(plan.hotels && plan.hotels.length> 0) { %>
+                    <section class="mb-5">
+                        <h3 class="fw-bold mb-4">Hotel Recommendation</h3>
+                        <div class="row row-cols-1 row-cols-md-3 g-4 overflow-auto flex-nowrap flex-md-wrap pb-3"
+                            style="scrollbar-width: thin;">
+                            <% for(let hotel of plan.hotels) { %>
+                                <div class="col" style="min-width: 300px;">
+                                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                                        <img src="<%= hotel.hotelImageUrl || trip.destinationImage %>"
+                                            class="card-img-top" style="height: 200px; object-fit: cover;"
+                                            alt="<%= hotel.name %>">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bold text-truncate">
+                                                <%= hotel.name %>
+                                            </h5>
+                                            <p class="text-muted small mb-2">
+                                                <i class="fa-solid fa-location-dot me-1"></i>
+                                                <%= hotel.address %>
+                                            </p>
+                                            <p class="text-primary fw-bold mb-1">
+                                                <%= hotel.price %>
+                                            </p>
+                                            <div class="d-flex align-items-center">
+                                                <span class="badge bg-warning text-dark me-2">
+                                                    <i class="fa-solid fa-star small"></i>
+                                                    <%= hotel.rating %>
+                                                </span>
+                                                <small class="text-muted">Rating</small>
                                             </div>
                                         </div>
-                                        <% } %>
+                                    </div>
                                 </div>
-                                <hr>
                                 <% } %>
+                        </div>
+                    </section>
+                    <% } %>
 
-                                    <% if(plan.itinerary && plan.itinerary.length> 0) { %>
-                                        <h4><i class="fa-solid fa-calendar-days"></i> Itinerary</h4>
-                                        <div class="accordion" id="itineraryAccordion">
-                                            <% for(let dayPlan of plan.itinerary) { %>
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="heading<%= dayPlan.day %>">
-                                                        <button class="accordion-button collapsed" type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#collapse<%= dayPlan.day %>"
-                                                            aria-expanded="false"
-                                                            aria-controls="collapse<%= dayPlan.day %>">
-                                                            <strong>Day <%= dayPlan.day %></strong>
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapse<%= dayPlan.day %>"
-                                                        class="accordion-collapse collapse"
-                                                        aria-labelledby="heading<%= dayPlan.day %>">
-                                                        <div class="accordion-body">
-                                                            <ul class="list-group list-group-flush">
-                                                                <% for(let activity of dayPlan.activities) { %>
-                                                                    <li class="list-group-item">
-                                                                        <div
-                                                                            class="d-flex w-100 justify-content-between">
-                                                                            <h5 class="mb-1">
-                                                                                <%= activity.time %>: <%=
-                                                                                        activity.activity %>
-                                                                            </h5>
-                                                                            <% if(activity.place) { %>
-                                                                                <small
-                                                                                    class="badge bg-secondary align-self-center">
-                                                                                    <%= activity.place %>
-                                                                                </small>
-                                                                                <% } %>
-                                                                        </div>
-                                                                        <% if(activity.details) { %>
-                                                                            <p class="mb-1">
-                                                                                <%= activity.details %>
-                                                                            </p>
-                                                                            <% } %>
-                                                                                <small class="text-muted">
-                                                                                    <% if(activity.ticketPricing) { %>
-                                                                                        Ticket: <%=
-                                                                                            activity.ticketPricing %> |
-                                                                                            <% } %>
-                                                                                                <% if(activity.travelTime)
-                                                                                                    { %> Travel: <%=
-                                                                                                        activity.travelTime
-                                                                                                        %> | <% } %>
-                                                                                                            <% if(activity.bestTimeToVisit)
-                                                                                                                { %>
-                                                                                                                Best
-                                                                                                                Time:
-                                                                                                                <%= activity.bestTimeToVisit
-                                                                                                                    %>
-                                                                                                                    <% }
-                                                                                                                        %>
-                                                                                </small>
-                                                                    </li>
-                                                                    <% } %>
-                                                            </ul>
+                        <!-- Places To Visit Section -->
+                        <% if(plan.itinerary && plan.itinerary.length> 0) { %>
+                            <section class="mb-5">
+                                <h3 class="fw-bold mb-4">Places To Visit</h3>
+
+                                <% for(let dayPlan of plan.itinerary) { %>
+                                    <div class="mb-5">
+                                        <h4 class="fw-bold mb-4 text-primary">Day <%= dayPlan.day %>
+                                        </h4>
+
+                                        <% // Group activities by time of day for cleaner UI const
+                                            morning=dayPlan.activities.filter(a=>
+                                            a.time.toLowerCase().includes('morning'));
+                                            const midday = dayPlan.activities.filter(a =>
+                                            a.time.toLowerCase().includes('afternoon') ||
+                                            a.time.toLowerCase().includes('midday'));
+                                            const evening = dayPlan.activities.filter(a =>
+                                            a.time.toLowerCase().includes('evening'));
+
+                                            // Fallback if AI doesn't categorize strictly
+                                            const other = dayPlan.activities.filter(a =>
+                                            !a.time.toLowerCase().includes('morning') &&
+                                            !a.time.toLowerCase().includes('afternoon') &&
+                                            !a.time.toLowerCase().includes('midday') &&
+                                            !a.time.toLowerCase().includes('evening')
+                                            );
+
+                                            const renderActivityList = (activities, label, subtitle) => {
+                                            if (activities.length === 0) return '';
+                                            let html = `<div class="mb-4">
+                                                <h5 class="fw-bold mb-1">${label}</h5>
+                                                <p class="text-muted small mb-3">${subtitle}</p>`;
+
+                                                activities.forEach(activity => {
+                                                html += `
+                                                <div class="card mb-3 border-0 shadow-sm rounded-4 overflow-hidden p-2">
+                                                    <div class="row g-0 align-items-center">
+                                                        <div class="col-4 col-sm-3 col-md-3">
+                                                            <img src="${activity.placeImageUrl || trip.destinationImage}"
+                                                                class="img-fluid rounded-3"
+                                                                style="height: 140px; width: 100%; object-fit: cover;"
+                                                                alt="${activity.place}">
+                                                        </div>
+                                                        <div class="col-8 col-sm-9 col-md-9">
+                                                            <div class="card-body py-1 py-md-2">
+                                                                <h5 class="card-title fw-bold text-primary mb-1">
+                                                                    ${activity.place}</h5>
+                                                                <p class="card-text small text-muted mb-2 line-clamp-2">
+                                                                    ${activity.details}</p>
+                                                                <div class="d-flex flex-wrap gap-2 gap-md-3 mt-auto">
+                                                                    <span class="small"><i
+                                                                            class="fa-solid fa-ticket me-1 text-secondary"></i>
+                                                                        ${activity.ticketPricing}</span>
+                                                                    <span class="small"><i
+                                                                            class="fa-solid fa-clock me-1 text-secondary"></i>
+                                                                        ${activity.travelTime}</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <% } %>
+                                                </div>`;
+                                                });
+                                                html += `
+                                            </div>`;
+                                            return html;
+                                            };
+                                            %>
+
+                                            <%- renderActivityList(morning, "Morning" , "Best to avoid crowds and heat"
+                                                ) %>
+                                                <%- renderActivityList(midday, "Midday / Afternoon"
+                                                    , "Perfect for indoor or shaded attractions" ) %>
+                                                    <%- renderActivityList(evening, "Evening"
+                                                        , "Great for local markets and atmosphere" ) %>
+                                                        <%- renderActivityList(other, "Other Activities"
+                                                            , "Flexible timing" ) %>
+
+                                    </div>
+                                    <% } %>
+                            </section>
+                            <% } %>
+
+                                <% } else { %>
+                                    <div class="alert alert-warning rounded-4 border-0 shadow-sm p-4">
+                                        <i class="fa-solid fa-circle-exclamation me-2"></i> Plan details are missing or
+                                        incomplete.
+                                    </div>
+                                    <% } %>
+
+                                        <div class="text-center mt-5">
+                                            <a href="/trips/new" class="btn btn-dark rounded-pill px-5 py-2">Plan
+                                                Another Trip</a>
                                         </div>
-                                        <% } %>
-
-                                            <% } else { %>
-                                                <div class="alert alert-warning">
-                                                    Plan details are missing or incomplete.
-                                                </div>
-                                                <% } %>
-
-                </div>
-            </div>
-            <a href="/trips/new" class="btn btn-dark mt-3 mb-3">Plan Another Trip</a>
-        </div>
     </div>
+
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            overflow: hidden;
+        }
+
+        .hero-img {
+            height: 400px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .hero-img {
+                height: 250px;
+            }
+
+            .overflow-auto {
+                padding-left: 1rem;
+                margin-left: -1rem;
+                margin-right: -1rem;
+            }
+
+            .card-title {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+
+    <script>
+        document.getElementById('shareButton').addEventListener('click', async () => {
+            try {
+                await navigator.share({
+                    title: 'My Trip to <%= trip.destination %>',
+                    text: 'Check out my AI-generated travel plan for <%= trip.destination %>!',
+                    url: window.location.href,
+                });
+            } catch (err) {
+                // Fallback to clipboard if share API is not supported
+                navigator.clipboard.writeText(window.location.href);
+                alert('Trip link copied to clipboard!');
+            }
+        });
+    </script>

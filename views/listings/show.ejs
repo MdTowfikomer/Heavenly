@@ -1,14 +1,12 @@
 <% layout("/layouts/boilerPlate") %>
-    <div class="row">
-        <div class="col-8 offset-3">
-            <b>
-                <h3>
-                    <%= listing.title %>
-                </h3>
-            </b>
+    <div class="row mt-3">
+        <div class="col-12 col-md-8 offset-md-2">
+            <h3>
+                <%= listing.title %>
+            </h3>
         </div>
 
-        <div class="card col-6 offset-3 show-card listing-card">
+        <div class="card col-12 col-md-8 offset-md-2 show-card listing-card">
             <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_img">
             <div class="card-body">
                 <p class="card-text"> <i><b>
@@ -29,24 +27,24 @@
         <br>
 
         <% if(curUser && curUser._id.equals(listing.owner._id)) {%>
-            <div class="btns">
-                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit </a>
+            <div class="btns d-flex col-12 col-md-8 offset-md-2 mb-3">
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn px-4">Edit</a>
 
-                <form method="post" action="/listings/<%=listing._id%>?_method=DELETE">
-                    <button class="btn btn-dark offset-5">Delete</button>
+                <form method="post" action="/listings/<%=listing._id%>?_method=DELETE" >
+                    <button class="btn btn-dark">Delete</button>
                 </form>
             </div>
             <% } %>
     </div>
     <hr>
 
-    <div class="col-8 offset-3 mb-3">
+    <div class="col-12 col-md-8 offset-md-2 mb-3">
         <h3>Where you'll be</h3>
-        <div id="map" style="width: 100%; height: 400px;"></div>
+        <div id="map" class="rounded-3 shadow-sm" style="width: 100%; height: 400px;"></div>
     </div>
 
-    <!-- Review form -->
-    <div class="col-8 offset-3">
+    <div class="col-12 col-md-8 offset-md-2">
+        <hr>
         <h4>Leave a Review</h4>
         <% //if(curUser) {%>
             <form action="/listings/<%=listing._id%>/reviews" method="POST" novalidate class="needs-validation">
@@ -84,32 +82,29 @@
             </form>
             <% // } %>
 
-                <hr>
                 <%if(listing.reviews.length> 0) {%>
+                    <hr>
                     <h4>All Reviews</h4>
-                    <% } %>
-
-                        <div class="row">
-                            <% for(review of listing.reviews) {%>
-                                <div class="card col-6">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            @<%= review.author.username %>
-                                        </h5>
-                                        <p class="starability-result card-text" data-rating="<%= review.rating %>">
-                                        </p>
-                                        <p class="card-text">
-                                            <%= review.comment %>
-                                        </p>
-                                    </div>
-                                    <form method="post"
-                                        action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"
-                                        class="mb-3">
-                                        <button class="btn btn-sm btn-dark">Delete</button>
-                                    </form>
+                    <div class="row">
+                        <% for(review of listing.reviews) {%>
+                            <div class="card col-12 col-md-5 ms-0 ms-md-3 mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">@<%= review.author.username %>
+                                    </h5>
+                                    <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+                                    <p class="card-text">
+                                        <%= review.comment %>
+                                    </p>
                                 </div>
-                                <% } %>
-                        </div>
+                                <form method="post"
+                                    action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"
+                                    class="mb-3">
+                                    <button class="btn btn-sm btn-dark">Delete</button>
+                                </form>
+                            </div>
+                            <% } %>
+                    </div>
+                    <% } %>
     </div>
 
     <script>
@@ -117,38 +112,38 @@
         const locationText = "<%- listing.location %>, <%- listing.country %>";
 
         fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(locationText)}&apiKey=${apiKey}`)
-        .then(resp => resp.json())
-        .then((geocodingResult) => {
-            const mapDiv = document.getElementById('map');
-            
-            if (apiKey && geocodingResult.features.length > 0) {
-                const [lon, lat] = geocodingResult.features[0].geometry.coordinates;
-                
-                // Initialize the map inside the callback
-                const map = L.map('map').setView([lat, lon], 13);
+            .then(resp => resp.json())
+            .then((geocodingResult) => {
+                const mapDiv = document.getElementById('map');
 
-                L.tileLayer('https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey={apiKey}', {
-                    apiKey: apiKey
-                }).addTo(map);
+                if (apiKey && geocodingResult.features.length > 0) {
+                    const [lon, lat] = geocodingResult.features[0].geometry.coordinates;
 
-                L.marker([lat, lon]).addTo(map)
-                    .bindPopup(`<b><%- listing.title %></b><br><%- listing.location %>`)
-                    .openPopup();
-            } else {
-                mapDiv.style.display = 'flex';
-                mapDiv.style.alignItems = 'center';
-                mapDiv.style.justifyContent = 'center';
-                mapDiv.style.backgroundColor = '#f8f9fa';
+                    // Initialize the map inside the callback
+                    const map = L.map('map').setView([lat, lon], 13);
 
-                if (!apiKey) {
-                    mapDiv.innerHTML = "<i><b>Map could not be loaded.</b> API Key is missing. Please check your .env file.</i>";
+                    L.tileLayer('https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey={apiKey}', {
+                        apiKey: apiKey
+                    }).addTo(map);
+
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup(`<b><%- listing.title %></b><br><%- listing.location %>`)
+                        .openPopup();
                 } else {
-                    mapDiv.innerHTML = "<i>Location could not be found on the map.</i>";
+                    mapDiv.style.display = 'flex';
+                    mapDiv.style.alignItems = 'center';
+                    mapDiv.style.justifyContent = 'center';
+                    mapDiv.style.backgroundColor = '#f8f9fa';
+
+                    if (!apiKey) {
+                        mapDiv.innerHTML = "<i><b>Map could not be loaded.</b> API Key is missing. Please check your .env file.</i>";
+                    } else {
+                        mapDiv.innerHTML = "<i>Location could not be found on the map.</i>";
+                    }
                 }
-            }
-        })
-        .catch(err => {
-            console.error("Error loading map:", err);
-            document.getElementById('map').innerHTML = "<i>An error occurred while loading the map. Check the console for details.</i>";
-        });
+            })
+            .catch(err => {
+                console.error("Error loading map:", err);
+                document.getElementById('map').innerHTML = "<i>An error occurred while loading the map. Check the console for details.</i>";
+            });
     </script>
