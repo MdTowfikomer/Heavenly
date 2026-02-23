@@ -55,17 +55,37 @@ footer {
 .f-info-socials i {
     font-size: 1.5rem;
     margin-right: 1rem;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.f-info-socials i:hover {
+    color: #fe424d;
 }
 
 .f-info {
-    min-height: 8rem;
-    padding: 1.5rem 0;
-    background-color: #ebebeb;
+    min-height: 9rem;
+    padding: 2rem 0;
+    background-color: #f8f9fa;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     text-align: center;
+    border-top: 1px solid #dee2e6;
+}
+
+.f-info-creator {
+    width: 100%;
+    color: #444;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.heart-icon {
+    color: #fe424d;
+    display: inline-block;
+    animation: heartBeat 1.5s ease-in-out infinite;
 }
 
 /* Cards */
@@ -75,7 +95,7 @@ footer {
 }
 
 .card-img-top {
-    border-radius: 1 rem !important;
+    border-radius: 1rem !important;
     width: 100% !important;
     object-fit: cover !important;
 }
@@ -101,6 +121,7 @@ footer {
 .card-img-overlay:hover {
     opacity: 0.2;
     background-color: white;
+    border-radius: 1rem !important;
 }
 
 
@@ -137,17 +158,19 @@ footer {
     .show-img {
         height: 250px;
     }
-    
+
     .btns {
         flex-direction: column;
         gap: 10px;
     }
-    
-    .btns form, .btns a {
+
+    .btns form,
+    .btns a {
         width: 100%;
     }
-    
-    .btns button, .btns a {
+
+    .btns button,
+    .btns a {
         width: 100%;
     }
 }
@@ -216,4 +239,30 @@ footer {
 .btn-generate:disabled {
     background-color: #ccc !important;
     cursor: not-allowed;
+}
+
+
+
+/* Ultra-wide Displays (2500px+) */
+@media (min-width: 2500px) {
+    .container {
+        max-width: 2200px !important;
+    }
+
+    body {
+        font-size: 1.15rem;
+    }
+
+    .listing-card .card-text {
+        font-size: 1.25rem;
+    }
+
+    .show-img {
+        height: 50vh;
+    }
+
+    h3,
+    .fw-bold {
+        font-size: 2.2rem;
+    }
 }

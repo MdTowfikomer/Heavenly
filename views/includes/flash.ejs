@@ -1,11 +1,22 @@
 <style>
     .alert {
-        z-index: 1050 !important;
-        position: fixed !important;
-        top: 2rem;
-        right: 20%;
+        z-index: 1050;
+        position: fixed;
+        top: 4.5rem;
+        left: 50%;
         transform: translateX(-50%);
-        width: 30%;
+        width: 90%;
+        max-width: 600px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 12px;
+    }
+
+    @media (min-width: 768px) {
+        .alert {
+            width: 50%;
+            top: 5rem;
+        }
     }
 </style>
 <!-- Success -->

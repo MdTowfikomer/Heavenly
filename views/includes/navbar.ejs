@@ -19,12 +19,47 @@
   .search-input {
     border-radius: 25px;
     padding: 0.5rem 3rem 0.5rem 1rem;
-    width: 25rem;
+    width: 14rem;
+    transition: width 0.3s ease;
   }
 
-  @media (max-width: 768px) {
+  /* Large desktops - nice and wide */
+  @media (min-width: 1200px) {
     .search-input {
-      width: 15rem;
+      width: 25rem;
+    }
+  }
+
+  /* Ultra-wide screens */
+  @media (min-width: 2500px) {
+    .search-input {
+      width: 40rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  /* Breakpoint for centering the search bar - changed to 992px (lg) to match expansion */
+  @media (min-width: 992px) {
+    .search-container {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .search-input:not(:focus) {
+      width: 18rem;
+    }
+
+    /* Focus expansion for premium feel */
+    .search-input:focus {
+      width: 22rem;
+    }
+  }
+
+  /* Tablets and small desktops - prevent overlapping */
+  @media (max-width: 991px) {
+    .search-input {
+      width: 16rem;
     }
 
     .search-container {
@@ -34,7 +69,7 @@
 
   @media (max-width: 480px) {
     .search-input {
-      width: 11rem;
+      width: 10rem;
       padding: 0.5rem 0.5rem 0.5rem 1rem;
       font-size: 0.85rem;
     }
@@ -45,14 +80,14 @@
   }
 </style>
 
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top">
+  <div class="container">
     <a class="navbar-brand" href="/listings">
       <i class="fa-regular fa-compass"></i>
     </a>
 
     <!-- Search form always visible -->
-    <div class="navbar-nav ms-auto search-container">
+    <div class="navbar-nav search-container">
       <form role="search" class="d-flex" method="get" action="/listings">
         <input type="search" class="form-control me-2 search-input" name="q" placeholder="Search Destination"
           aria-label="Search">
@@ -66,9 +101,9 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+      <!-- <div class="navbar-nav">
         <a class="nav-link" href="/listings">Explore</a>
-      </div>
+      </div> -->
 
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/trips/new">Trip Planner</a>

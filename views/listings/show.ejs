@@ -1,12 +1,24 @@
 <% layout("/layouts/boilerPlate") %>
+    <style>
+        @media (min-width: 2500px) {
+            .col-show-ultra {
+                width: 70% !important;
+                margin-left: 15% !important;
+            }
+
+            .show-img {
+                height: 60vh !important;
+            }
+        }
+    </style>
     <div class="row mt-3">
-        <div class="col-12 col-md-8 offset-md-2">
+        <div class="col-12 col-md-8 offset-md-2 col-show-ultra">
             <h3>
                 <%= listing.title %>
             </h3>
         </div>
 
-        <div class="card col-12 col-md-8 offset-md-2 show-card listing-card">
+        <div class="card col-12 col-md-8 offset-md-2 show-card listing-card col-show-ultra">
             <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_img">
             <div class="card-body">
                 <p class="card-text"> <i><b>
@@ -27,30 +39,30 @@
         <br>
 
         <% if(curUser && curUser._id.equals(listing.owner._id)) {%>
-            <div class="btns d-flex col-12 col-md-8 offset-md-2 mb-3">
-                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn px-4">Edit</a>
+            <div class="btns d-flex col-12 col-md-8 offset-md-2 mb-3 gap-3 col-show-ultra">
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn px-4 py-2 fw-semibold">Edit</a>
 
-                <form method="post" action="/listings/<%=listing._id%>?_method=DELETE" >
-                    <button class="btn btn-dark">Delete</button>
+                <form method="post" action="/listings/<%=listing._id%>?_method=DELETE" class="m-0">
+                    <button class="btn btn-dark delete-btn px-4 py-2 fw-semibold">Delete</button>
                 </form>
             </div>
             <% } %>
     </div>
     <hr>
 
-    <div class="col-12 col-md-8 offset-md-2 mb-3">
-        <h3>Where you'll be</h3>
-        <div id="map" class="rounded-3 shadow-sm" style="width: 100%; height: 400px;"></div>
+    <div class="col-12 col-md-8 offset-md-2 mb-3 col-show-ultra">
+        <h3 class="fw-bold">Where you'll be</h3>
+        <div id="map" class="rounded-4 shadow-sm border" style="width: 100%; height: 400px;"></div>
     </div>
 
-    <div class="col-12 col-md-8 offset-md-2">
+    <div class="col-12 col-md-8 offset-md-2 col-show-ultra">
         <hr>
-        <h4>Leave a Review</h4>
+        <h4 class="fw-bold">Leave a Review</h4>
         <% //if(curUser) {%>
             <form action="/listings/<%=listing._id%>/reviews" method="POST" novalidate class="needs-validation">
                 <div class="mb-3 mt-3">
 
-                    <label for="rating" class="form-label">Rating</label>
+                    <label for="rating" class="form-label fw-semibold">Rating</label>
                     <fieldset class="starability-grow">
                         <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked
                             aria-label="No rating." />
@@ -69,38 +81,42 @@
 
                 <div class="mb-3 mt-3">
                     <div>
-                        <label for="comment">Comment</label>
-                        <textarea id="comment" name="review[comment]" rows="4" cols="50" class="form-control"
-                            required></textarea>
+                        <label for="comment" class="form-label fw-semibold">Comment</label>
+                        <textarea id="comment" name="review[comment]" rows="4" cols="50" class="form-control rounded-3"
+                            required placeholder="Write your experience..."></textarea>
                         <div class="invalid-feedback">
-                            please add comment for review!
+                            Please add a comment for the review!
                         </div>
                     </div>
                     <br>
-                    <button class="btn btn-outline-dark ">Submit</button>
+                    <button class="btn btn-outline-dark rounded-pill px-4">Submit Review</button>
                 </div>
             </form>
             <% // } %>
 
                 <%if(listing.reviews.length> 0) {%>
                     <hr>
-                    <h4>All Reviews</h4>
-                    <div class="row">
+                    <h4 class="fw-bold mb-3">All Reviews</h4>
+                    <div class="row g-3">
                         <% for(review of listing.reviews) {%>
-                            <div class="card col-12 col-md-5 ms-0 ms-md-3 mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">@<%= review.author.username %>
-                                    </h5>
-                                    <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
-                                    <p class="card-text">
-                                        <%= review.comment %>
-                                    </p>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold mb-1">@<%= review.author.username %>
+                                        </h5>
+                                        <p class="starability-result card-text mb-2" data-rating="<%= review.rating %>">
+                                        </p>
+                                        <p class="card-text text-muted mb-3">
+                                            <%= review.comment %>
+                                        </p>
+                                        <form method="post"
+                                            action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"
+                                            class="mb-0">
+                                            <button
+                                                class="btn btn-sm btn-outline-danger rounded-pill px-3">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <form method="post"
-                                    action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"
-                                    class="mb-3">
-                                    <button class="btn btn-sm btn-dark">Delete</button>
-                                </form>
                             </div>
                             <% } %>
                     </div>

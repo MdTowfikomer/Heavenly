@@ -35,38 +35,19 @@
             margin-bottom: 0.5rem;
         }
 
-        .tax-info {
-            display: none;
-        }
-
-        .tax-toggle {
-            border: 1px solid #ccc;
-            border-radius: 1rem;
-            height: 3.25rem;
-            padding: 1rem;
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            background-color: #fff;
-            flex-shrink: 0;
-            white-space: nowrap;
+        @media (max-width: 991px) {
+            #filters {
+                justify-content: flex-start;
+            }
         }
 
         @media (max-width: 768px) {
-            .tax-toggle {
-                margin-left: 0;
-                margin-top: 1rem;
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            #filters {
-                margin-bottom: 1rem;
+            .filter {
+                margin-right: 1.5rem;
             }
         }
     </style>
-    <!-- <h3>All listing</h3> -->
-    <!-- row and cols for large screen 3 cards -->
+
     <div id="filters">
         <div class="filter">
             <div><i class="fa-solid fa-fire"></i></div>
@@ -112,18 +93,25 @@
             <div><i class="fa-solid fa-ship"></i></div>
             <p>Boats</p>
         </div>
-
-        <div class="tax-toggle">
-            <div class="form-switch form-check-reverse">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">display total after taxes</label>
-            </div>
-        </div>
     </div>
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+
+    <style>
+        @media (min-width: 2500px) {
+            .row-cols-ultra {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .row-cols-ultra>* {
+                width: 100% !important;
+            }
+        }
+    </style>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-ultra">
         <% for(let listing of allListing){%>
             <a href="/listings/<%= listing._id %>" class="listing-links">
-                <div class="card listing-card">
+                <div class="card listing-card h-100">
                     <img src="<%= listing.image.url %>" class="card-img-top" style="height: 20rem;" alt="listings_img">
                     <div class="card-img-overlay"></div>
                     <div class="card-body">
@@ -134,24 +122,9 @@
                             <% if(listing.price) { %>
                                 &#8377; <%= listing.price.toLocaleString('en-IN') %> /night
                                     <% } %>
-                                        <i class="tax-info">&nbsp; +18% GST</i>
                         </p>
                     </div>
                 </div>
             </a>
             <% } %>
     </div>
-
-    <script>
-        let taxToggle = document.getElementById("flexSwitchCheckDefault");
-        taxToggle.addEventListener("click", () => {
-            let taxInfo = document.getElementsByClassName("tax-info");
-            for (let info of taxInfo) {
-                if (info.style.display != "inline") {
-                    info.style.display = "inline";
-                } else {
-                    info.style.display = "none";
-                }
-            }
-        })
-    </script>
