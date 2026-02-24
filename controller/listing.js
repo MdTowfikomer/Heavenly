@@ -1,4 +1,10 @@
 const Listing = require("../models/listing");
+const Razorpay = require("razorpay");
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+const crypto = require("crypto");
 
 module.exports.index = async (req, res) => {
     const { q } = req.query;
@@ -101,4 +107,60 @@ module.exports.destroyListing = async (req, res) => {
     await Listing.findByIdAndDelete(id);
     req.flash("delete", "Listing deleted");
     res.redirect("/listings");
+}
+
+module.exports.bookListing = async (req, res) => {
+    try {
+        let { id } = req.params;
+        let listing = await Listing.findById(id);
+        if (!listing) {
+            return res.status(404).json({ error: "Listing not found" });
+        }
+
+        const amount = Math.round(listing.price * 100);
+        if (isNaN(amount) || amount <= 0) {
+            return res.status(400).json({ error: "Invalid listing price" });
+        }
+
+        let options = {
+            amount: amount,
+            currency: "INR",
+            receipt: `receipt_${id.substring(0, 5)}_${Date.now()}`,
+        };
+
+        razorpay.orders.create(options, (err, order) => {
+            if (err) {
+                console.error("Razorpay Order Error:", err);
+                return res.status(500).json({ error: err.description || "Razorpay order creation failed" });
+            }
+            res.json(order);
+        });
+    } catch (err) {
+        console.error("Booking Route Error:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+module.exports.verifyPayment = async (req, res) => {
+    try {
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+        if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+            return res.status(400).json({ status: "failure", error: "Missing payment details" });
+        }
+
+        const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
+        hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
+        const generated_signature = hmac.digest("hex");
+
+        if (generated_signature === razorpay_signature) {
+            req.flash("success", "Payment successful! Booking confirmed.");
+            res.json({ status: "success" });
+        } else {
+            res.status(400).json({ status: "failure", error: "Invalid payment signature" });
+        }
+    } catch (err) {
+        console.error("Verification Route Error:", err);
+        res.status(500).json({ status: "failure", error: "Internal Server Error" });
+    }
 }

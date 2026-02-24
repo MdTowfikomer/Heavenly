@@ -2,8 +2,8 @@
     .alert {
         z-index: 1050;
         position: fixed;
-        top: 4.5rem;
-        left: 50%;
+        top: 5rem;
+        left: 25%;
         transform: translateX(-50%);
         width: 90%;
         max-width: 600px;
@@ -46,3 +46,18 @@
                     </div>
 
                     <% } %>
+
+                        <script>
+                            setTimeout(() => {
+                                const alerts = document.querySelectorAll('.alert');
+                                alerts.forEach(alert => {
+                                    const bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+                                    if (bsAlert) {
+                                        bsAlert.close();
+                                    } else {
+                                        alert.classList.remove('show');
+                                        setTimeout(() => alert.remove(), 600);
+                                    }
+                                });
+                            }, 3000);
+                        </script>

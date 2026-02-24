@@ -39,6 +39,7 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
@@ -77,6 +78,7 @@ app.use((req, res, next) => {
     res.locals.del = req.flash("delete");
     res.locals.error = req.flash("error");
     res.locals.curUser = req.user;
+    res.locals.razorpayKeyId = process.env.RAZORPAY_KEY_ID;
     console.log("current user:", req.user);
     next();
 });
@@ -108,8 +110,11 @@ app.use((req, res, next) => {
 
 // error handling middleware
 app.use((err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err);
+    }
     let { statusCode = 500, message = "Something went wrong" } = err;
-    res.status(statusCode).render("./listings/error", { err });
+    res.status(statusCode).render("./listings/error", { err, success: [], del: [], error: [], curUser: null });
     console.log(message);
 });
 

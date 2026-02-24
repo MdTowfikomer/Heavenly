@@ -35,6 +35,7 @@
                     <%= listing.location %>
                 </p>
             </div>
+            <button id="rzp-button" class="btn btn-dark">Book Now</button>
         </div>
         <br>
 
@@ -162,4 +163,87 @@
                 console.error("Error loading map:", err);
                 document.getElementById('map').innerHTML = "<i>An error occurred while loading the map. Check the console for details.</i>";
             });
+    </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        const rzpButton = document.getElementById('rzp-button');
+
+        if (rzpButton) {
+            rzpButton.onclick = async function (e) {
+                try {
+                    console.log("Initiating booking...");
+                    rzpButton.disabled = true;
+                    rzpButton.innerText = "Processing...";
+
+                    // 1. CALL BACKEND TO CREATE ORDER
+                    const response = await fetch(`/listings/<%= listing._id %>/book`);
+                    
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                        return;
+                    }
+
+                    const contentType = response.headers.get("content-type");
+                    if (!response.ok || !contentType || !contentType.includes("application/json")) {
+                        const errorBody = await response.text();
+                        console.error("Server returned non-JSON response:", errorBody);
+                        throw new Error("Server error: Received HTML instead of JSON. Check your backend logs.");
+                    }
+
+                    const order = await response.json();
+                    if (order.error) {
+                        throw new Error(order.error);
+                    }
+
+                    // 2. DECLARING OPTION OBJ
+                    const options = {
+                        key: "<%= razorpayKeyId %>",
+                        amount: order.amount,
+                        currency: order.currency,
+                        name: "<%= listing.title %>",
+                        order_id: order.id,
+                        description: "Booking for <%= listing.title %>",
+                        image: "<%= listing.image.url %>",
+                        handler: async function (response) {
+                            try {
+                                const verifyRes = await fetch(`/listings/<%= listing._id %>/verify`, {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({
+                                        razorpay_order_id: response.razorpay_order_id,
+                                        razorpay_payment_id: response.razorpay_payment_id,
+                                        razorpay_signature: response.razorpay_signature
+                                    })
+                                });
+                                
+                                const verifyData = await verifyRes.json();
+                                if (verifyData.status === "success") {
+                                    window.location.href = `/listings/<%= listing._id %>`;
+                                } else {
+                                    alert("Payment verification failed: " + (verifyData.error || "Unknown error"));
+                                }
+                            } catch (vErr) {
+                                console.error("Verification error:", vErr);
+                                alert("Error verifying payment. Please contact support.");
+                            }
+                        },
+                        prefill: {
+                            name: "<%= curUser ? curUser.username : '' %>",
+                            email: "<%= curUser ? curUser.email : '' %>",   
+                        },
+                        theme: {
+                            color: "#3399cc"
+                        }
+                    }
+                    const rzp = new Razorpay(options);
+                    rzp.open();
+                } catch (err) {
+                    console.error("Payment error:", err);
+                    alert(err.message || "Something went wrong. Please try again.");
+                } finally {
+                    rzpButton.disabled = false;
+                    rzpButton.innerText = "Book Now";
+                }
+            }
+        }
     </script>

@@ -11,29 +11,33 @@
                         Looks good!
                     </div>
                 </div>
+                <!-- Description -->
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea name="listing[description]" placeholder="Enter Description" class="form-control" required>
                 </textarea>
                     <div class="invalid-feedback">Enter the Description please</div>
                 </div>
+                <!-- Image -->
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload Listing Image</label>
                     <input name="listing[image]" type="file" class="form-control">
                 </div>
                 <div class="row">
-
+                    <!-- Price -->
                     <div class="mb-3 col-md-4">
                         <label for="price" class="form-label">Price</label>
                         <input name="listing[price]" placeholder="Enter Price" type="number" class="form-control"
                             required>
                         <div class="invalid-feedback">Enter valid price</div>
                     </div>
+                    <!-- Country -->
                     <div class="mb-3 col-md-4">
                         <label for="country" class="form-label">Country</label>
                         <input name="listing[country]" placeholder="India" type="text" class="form-control" required>
                         <div class="invalid-feedback">Enter valid country</div>
                     </div>
+                    <!-- Category -->
                     <div class="mb-3 col-md-4">
                         <label for="category" class="form-label">Category</label>
                         <select name="listing[category]" type="text" class="form-control" required>
@@ -113,6 +117,7 @@
                     </div>
 
                 </div>
+                <!-- Location -->
                 <div class="mb-3">
                     <label for="location" class="form-label">Location</label>
                     <input name="listing[location]" placeholder="Hyderabad, Telangana" type="text" class="form-control"

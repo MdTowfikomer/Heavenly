@@ -4,8 +4,8 @@ const wrapAsync = require("../utils/wrapAsync");
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const listingController = require("../controller/listing.js");
 const multer = require("multer");
-const {storage} = require("../cloudConfig.js");
-const upload = multer({storage});
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
 router.route("/")
     .get(wrapAsync(listingController.index)) // Index route
     .post(
@@ -37,6 +37,8 @@ router.get("/:id/edit",
     wrapAsync(listingController.renderEditForm)
 );
 
+router.get("/:id/book", isLoggedIn, wrapAsync(listingController.bookListing));
+router.post("/:id/verify", isLoggedIn, wrapAsync(listingController.verifyPayment));
 
 
 module.exports = router;

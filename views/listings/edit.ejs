@@ -1,6 +1,7 @@
 <% layout("/layouts/boilerPlate") %>
     <div class="row mt-3">
         <div class="col-12 col-md-8 offset-md-2 ">
+
             <h3>Edit the Listing</h3>
             <form action="/listings/<%= listing._id %>?_method=PUT" method="post" class="needs-validation" novalidate
                 enctype="multipart/form-data">
@@ -12,30 +13,53 @@
                         Looks good!
                     </div>
                 </div>
+                <!-- Description -->
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea name="listing[description]" placeholder="Enter Description" class="form-control"
                         required><%=listing.description%></textarea>
                     <div class="invalid-feedback">Enter the Description please</div>
                 </div>
-
+                <!-- Image preview -->
                 <div class="mb-3">
                     Original Listing Image <br>
                     <img src="<%= originalImageUrl %>" class="img-fluid rounded-3 mt-2" style="max-height: 200px;"
                         alt="Original Listing Image">
                 </div>
-
+                <!-- Image -->
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload New Image</label>
                     <input name="listing[image]" type="file" class="form-control">
                 </div>
                 <div class="row">
+                    <!-- Price -->
                     <div class="mb-3 col-md-4">
                         <label for="price" class="form-label">Price</label>
                         <input name="listing[price]" value="<%=listing.price%>" placeholder="Enter Price" type="number"
                             class="form-control" required>
                         <div class="invalid-feedback">Enter valid price</div>
                     </div>
+                    <!-- Category -->
+                    <div class="mb-3 col-md-4">
+                        <label for="category" class="form-label">Category</label>
+                        <select name="listing[category]" class="form-control" required>
+                            <option value="">Select Category</option>
+                            <% const categories=[ "beach" , "mountains" , "forest" , "city" , "desert" , "island"
+                                , "lake" , "river" , "valley" , "canyon" , "cave" , "waterfall" , "glacier" , "volcano"
+                                , "jungle" , "swamp" , "wetland" , "grassland" , "savanna" , "tundra" , "arctic"
+                                , "antarctic" , "ocean" , "sea" , "bay" , "gulf" , "strait" , "channel" , "fjord"
+                                , "lagoon" , "estuary" , "delta" , "peninsula" , "archipelago" , "atoll" , "reef"
+                                , "mountain" , "hill" , "plateau" , "plain" ]; %>
+                                <% for(let category of categories) { %>
+                                    <option value="<%= category %>" <%=listing.category===category ? "selected" : "" %> >
+                                        <%= category.charAt(0).toUpperCase() + category.slice(1) %>
+                                    </option>
+                                    <% } %>
+                        </select>
+                        <div class="invalid-feedback">Enter valid Category</div>
+                    </div>
+
+                    <!-- Country -->
                     <div class="mb-3 col-md-8">
                         <label for="country" class="form-label">Country</label>
                         <input name="listing[country]" value="<%=listing.country%>" placeholder="Enter country"
@@ -43,6 +67,7 @@
                         <div class="invalid-feedback">Enter valid country</div>
                     </div>
                 </div>
+                <!-- Location -->
                 <div class="mb-3">
                     <label for="location" class="form-label">Location</label>
                     <input name="listing[location]" value="<%=listing.location%>" placeholder="Enter Location"

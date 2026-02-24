@@ -33,7 +33,7 @@
   /* Ultra-wide screens */
   @media (min-width: 2500px) {
     .search-input {
-      width: 40rem;
+      width: 20rem;
       font-size: 1.25rem;
     }
   }
@@ -44,6 +44,7 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
+      margin-left: -5rem;
     }
 
     .search-input:not(:focus) {
@@ -92,7 +93,7 @@
         <input type="search" class="form-control me-2 search-input" name="q" placeholder="Search Destination"
           aria-label="Search">
         <button class="btn search-btn" type="submit">
-          <i class="fa-solid fa-magnifying-glass"></i><span class="d-none d-lg-inline">Search</span></button>
+          <i class="fa-solid fa-magnifying-glass"></i><span class="d-none d-xl-inline">Search</span></button>
       </form>
     </div>
 

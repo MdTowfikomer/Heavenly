@@ -35,7 +35,7 @@ module.exports.afterLogin = async (req, res) => {
     res.redirect("/listings");
 }
 
-module.exports.logout = (req, res) => {
+module.exports.logout = (req, res, next) => {
     req.logout((err) => {
         if (err) {
             return next(err);
