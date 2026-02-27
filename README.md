@@ -2,7 +2,6 @@
 
 Heavenly is a premium full-stack travel platform designed to bridge the gap between wanderlust and a perfectly executed plan. Built for the modern traveler, it combines a curated listing ecosystem with cutting-edge **Generative AI** to craft bespoke itineraries.
 
-![Heavenly Banner](https://images.unsplash.com/photo-1502791451862-7bd8c1df43a7?auto=format&fit=crop&q=80&w=2000)
 
 ## 📌 Problem Statement
 Traditional travel planning is fragmented. Travelers jump between listing sites, budget spreadsheets, and manual research. **Heavenly** solves this by consolidating discovery, booking, and planning into one seamless experience. Whether you're a solo adventurer or a family planner, Heavenly provides the tools to turn a destination into a detailed, ready-to-go journey.
