@@ -23,7 +23,7 @@ const tripSchema = new Schema({
     },
     destinationImage: {
         type: String,
-        default: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop"
+        default: "https://media.istockphoto.com/id/1055079680/vector/black-linear-photo-camera-like-no-image-available.jpg?s=612x612&w=0&k=20&c=P1DebpeMIAtXj_ZbVsKVvg-duuL0v9DlrOZUvPG6UJk="
     },
     generatedPlan: {
         type: Schema.Types.Mixed, // Storing the JSON response from Gemini
