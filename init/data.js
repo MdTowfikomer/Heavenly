@@ -1,5 +1,197 @@
 const sampleListings = [
   {
+    title: "Heritage Courtyard Haveli in Jaipur",
+    description: "Authentic Rajasthani haveli with carved balconies and royal interiors.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 3800,
+    location: "Jaipur",
+    country: "India",
+    category: "castle",
+  },
+  {
+    title: "Lake Pichola Palace View Suite",
+    description: "Elegant heritage suite overlooking the beautiful Lake Pichola.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 7500,
+    location: "Udaipur",
+    country: "India",
+    category: "castle",
+  },
+  {
+    title: "Marine Drive Sea View Apartment",
+    description: "Balcony apartment with uninterrupted Arabian Sea views.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 4800,
+    location: "Mumbai",
+    country: "India",
+    category: "iconic city",
+  },
+  {
+    title: "Minimalist Loft in Indiranagar",
+    description: "Clean, airy loft space in one of Bangalore's trendiest neighborhoods.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 3200,
+    location: "Bangalore",
+    country: "India",
+    category: "rooms",
+  },
+  {
+    title: "Luxury Apartment Near India Gate",
+    description: "Elegant modern apartment close to Delhi's iconic monuments.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 4200,
+    location: "New Delhi",
+    country: "India",
+    category: "iconic city",
+  },
+  {
+    title: "Wooden Mountain Cabin in Manali",
+    description: "Cozy alpine cabin surrounded by pine forests and snowy peaks.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 3000,
+    location: "Manali",
+    country: "India",
+    category: "mountains",
+  },
+  {
+    title: "Ski Chalet with Snow Views in Gulmarg",
+    description: "Warm wooden chalet steps away from snowy slopes.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 4500,
+    location: "Gulmarg",
+    country: "India",
+    category: "mountains",
+  },
+  {
+    title: "Private Infinity Pool Villa in Goa",
+    description: "Tropical villa with private pool and palm-lined courtyard.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 6900,
+    location: "Goa",
+    country: "India",
+    category: "amazing pools",
+  },
+  {
+    title: "Cliffside Pool Retreat in Varkala",
+    description: "Ocean-facing villa with stunning sunset infinity pool.",
+    image: {
+      filename: "listingimage",
+      url: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTIzNjg3NjgzNDg2NjQ1MDQz/original/d410ac18-f34b-4588-90d4-ac62f85fef17.jpeg?im_w=720",
+    },
+    price: 5600,
+    location: "Varkala",
+    country: "India",
+    category: "amazing pools",
+  },
+  {
+    title: "Luxury Houseboat Cruise in Alleppey",
+    description: "Traditional Kerala houseboat experience through peaceful backwaters.",
+    image: {
+      filename: "listingimage",
+      url: "https://bluejellycruises.com/wp-content/uploads/2024/04/blue-jellly-amber-slide-1.webp",
+    },
+    price: 5200,
+    location: "Alleppey",
+    country: "India",
+    category: "boats",
+  },
+  {
+    title: "Dal Lake Wooden Houseboat",
+    description: "Hand-carved Kashmiri houseboat floating on serene Dal Lake.",
+    image: {
+      filename: "listingimage",
+      url: "https://media.assettype.com/outlooktraveller%2F2024-09-22%2F8f8v8ymd%2Fshutterstock792018517.jpg?w=1024&auto=format%2Ccompress&fit=max",
+    },
+    price: 4800,
+    location: "Srinagar",
+    country: "India",
+    category: "boats",
+  },
+  {
+    title: "Luxury Desert Dome in Jaisalmer",
+    description: "Glamping dome stay under the starlit Thar desert sky.",
+    image: {
+      filename: "listingimage",
+      url: "https://r1imghtlak.mmtcdn.com/124eb387-650f-4e13-a3be-799f66e94691.jpg?&output-quality=75&downsize=520:350&crop=520:350;0,20&output-format=jpg&downsize=480:336&crop=480:336",
+    },
+    price: 3400,
+    location: "Jaisalmer",
+    country: "India",
+    category: "domes",
+  },
+  {
+    title: "White Salt Desert Dome - Kutch",
+    description: "Minimalist dome stay in the surreal Rann of Kutch.",
+    image: {
+      filename: "listingimage",
+      url: "https://mediaindia.eu/wp-content/uploads/2025/10/IO-lead-1200x675-14.jpg",
+    },
+    price: 3600,
+    location: "Rann of Kutch",
+    country: "India",
+    category: "domes",
+  },
+  {
+    title: "Riverside Camping Tents in Rishikesh",
+    description: "Adventure stay with bonfire nights and rafting access.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 2200,
+    location: "Rishikesh",
+    country: "India",
+    category: "camping",
+  },
+  {
+    title: "Coffee Estate Camping in Coorg",
+    description: "Luxury tents surrounded by misty coffee plantations.",
+    image: {
+      filename: "listingimage",
+      url: "https://coorgcoffeecamp.com/wp-content/uploads/2022/08/WhatsApp-Image-2022-08-23-at-4.44.15-PM-768x578.jpeg",
+    },
+    price: 2400,
+    location: "Coorg",
+    country: "India",
+    category: "camping",
+  },
+  {
+    title: "Snow Igloo Stay in Ladakh",
+    description: "Arctic-style insulated igloo with panoramic snow views.",
+    image: {
+      filename: "listingimage",
+      url: "https://gos3.ibcdn.com/f3925b065cfa11ecb98d0a58a9feac02.jpg",
+    },
+    price: 5000,
+    location: "Ladakh",
+    country: "India",
+    category: "arctic",
+  },
+  {
     title: "Cozy Beachfront Cottage",
     description:
       "Escape to this charming beachfront cottage for a relaxing getaway. Enjoy stunning ocean views and easy access to the beach.",
@@ -23,7 +215,7 @@ const sampleListings = [
     price: 1200,
     location: "New York City",
     country: "United States",
-    category: "city",
+    category: "iconic city",
   },
   {
     title: "Mountain Retreat",
@@ -40,7 +232,7 @@ const sampleListings = [
   },
   {
     title: "Historic Villa in Tuscany",
-    category: "valley",
+    category: "mountains",
     description:
       "Experience the charm of Tuscany in this beautifully restored villa. Explore the rolling hills and vineyards.",
     image: {
@@ -53,7 +245,7 @@ const sampleListings = [
   },
   {
     title: "Secluded Treehouse Getaway",
-    category: "forest",
+    category: "mountains",
     description:
       "Live among the treetops in this unique treehouse retreat. A true nature lover's paradise.",
     image: {
@@ -63,6 +255,7 @@ const sampleListings = [
     price: 800,
     location: "Portland",
     country: "United States",
+  
   },
   {
     title: "Beachfront Paradise",
@@ -79,7 +272,7 @@ const sampleListings = [
   },
   {
     title: "Rustic Cabin by the Lake",
-    category: "lake",
+    category: "boats",
     description:
       "Spend your days fishing and kayaking on the serene lake. This cozy cabin is perfect for outdoor enthusiasts.",
     image: {
@@ -92,7 +285,7 @@ const sampleListings = [
   },
   {
     title: "Luxury Penthouse with City Views",
-    category: "city",
+    category: "iconic city",
     description:
       "Indulge in luxury living with panoramic city views from this stunning penthouse apartment.",
     image: {
@@ -118,7 +311,7 @@ const sampleListings = [
   },
   {
     title: "Safari Lodge in the Serengeti",
-    category: "savanna",
+    category: "mountains",
     description:
       "Experience the thrill of the wild in a comfortable safari lodge. Witness the Great Migration up close.",
     image: {
@@ -130,21 +323,8 @@ const sampleListings = [
     country: "Tanzania",
   },
   {
-    title: "Historic Canal House",
-    category: "city",
-    description:
-      "Stay in a piece of history in this beautifully preserved canal house in Amsterdam's iconic district.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FtcGluZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 1800,
-    location: "Amsterdam",
-    country: "Netherlands",
-  },
-  {
     title: "Private Island Retreat",
-    category: "island",
+    category: "farm",
     description:
       "Have an entire island to yourself for a truly exclusive and unforgettable vacation experience.",
     image: {
@@ -157,7 +337,7 @@ const sampleListings = [
   },
   {
     title: "Charming Cottage in the Cotswolds",
-    category: "valley",
+    category: "mountains",
     description:
       "Escape to the picturesque Cotswolds in this quaint and charming cottage with a thatched roof.",
     image: {
@@ -170,7 +350,7 @@ const sampleListings = [
   },
   {
     title: "Historic Brownstone in Boston",
-    category: "city",
+    category: "iconic city",
     description:
       "Step back in time in this elegant historic brownstone located in the heart of Boston.",
     image: {
@@ -209,7 +389,7 @@ const sampleListings = [
   },
   {
     title: "Art Deco Apartment in Miami",
-    category: "city",
+    category: "iconic city",
     description:
       "Step into the glamour of the 1920s in this stylish Art Deco apartment in South Beach.",
     image: {
@@ -222,7 +402,7 @@ const sampleListings = [
   },
   {
     title: "Tropical Villa in Phuket",
-    category: "island",
+    category: "boats",
     description:
       "Escape to a tropical paradise in this luxurious villa with a private infinity pool in Phuket.",
     image: {
@@ -248,7 +428,7 @@ const sampleListings = [
   },
   {
     title: "Desert Oasis in Dubai",
-    category: "desert",
+    category: "iconic city",
     description:
       "Experience luxury in the middle of the desert in this opulent oasis in Dubai with a private pool.",
     image: {
@@ -261,7 +441,7 @@ const sampleListings = [
   },
   {
     title: "Rustic Log Cabin in Montana",
-    category: "forest",
+    category: "farm",
     description:
       "Unplug and unwind in this cozy log cabin surrounded by the natural beauty of Montana.",
     image: {
@@ -287,7 +467,7 @@ const sampleListings = [
   },
   {
     title: "Eco-Friendly Treehouse Retreat",
-    category: "forest",
+    category: "mountains",
     description:
       "Stay in an eco-friendly treehouse nestled in the forest. It's the perfect escape for nature lovers.",
     image: {
@@ -300,7 +480,7 @@ const sampleListings = [
   },
   {
     title: "Historic Cottage in Charleston",
-    category: "city",
+    category: "iconic city",
     description:
       "Experience the charm of historic Charleston in this beautifully restored cottage with a private garden.",
     image: {
@@ -313,7 +493,7 @@ const sampleListings = [
   },
   {
     title: "Modern Apartment in Tokyo",
-    category: "city",
+    category: "iconic city",
     description:
       "Explore the vibrant city of Tokyo from this modern and centrally located apartment.",
     image: {
@@ -326,7 +506,7 @@ const sampleListings = [
   },
   {
     title: "Lakefront Cabin in New Hampshire",
-    category: "lake",
+    category: "boats",
     description:
       "Spend your days by the lake in this cozy cabin in the scenic White Mountains of New Hampshire.",
     image: {
@@ -339,7 +519,7 @@ const sampleListings = [
   },
   {
     title: "Luxury Villa in the Maldives",
-    category: "ocean",
+    category: "boats",
     description:
       "Indulge in luxury in this overwater villa in the Maldives with stunning views of the Indian Ocean.",
     image: {

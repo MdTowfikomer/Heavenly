@@ -40,78 +40,14 @@
                     <!-- Category -->
                     <div class="mb-3 col-md-4">
                         <label for="category" class="form-label">Category</label>
-                        <select name="listing[category]" type="text" class="form-control" required>
+                         <select name="listing[category]" class="form-control" required>
                             <option value="">Select Category</option>
-                            <option value="beach">Beach</option>
-                            <option value="mountains">Mountains</option>
-                            <option value="forest">Forest</option>
-                            <option value="city">City</option>
-                            <option value="desert">Desert</option>
-                            <option value="island">Island</option>
-                            <option value="lake">Lake</option>
-                            <option value="river">River</option>
-                            <option value="valley">Valley</option>
-                            <option value="canyon">Canyon</option>
-                            <option value="cave">Cave</option>
-                            <option value="waterfall">Waterfall</option>
-                            <option value="glacier">Glacier</option>
-                            <option value="volcano">Volcano</option>
-                            <option value="jungle">Jungle</option>
-                            <option value="swamp">Swamp</option>
-                            <option value="wetland">Wetland</option>
-                            <option value="grassland">Grassland</option>
-                            <option value="savanna">Savanna</option>
-                            <option value="tundra">Tundra</option>
-                            <option value="arctic">Arctic</option>
-                            <option value="antarctic">Antarctic</option>
-                            <option value="ocean">Ocean</option>
-                            <option value="sea">Sea</option>
-                            <option value="bay">Bay</option>
-                            <option value="gulf">Gulf</option>
-                            <option value="strait">Strait</option>
-                            <option value="channel">Channel</option>
-                            <option value="fjord">Fjord</option>
-                            <option value="lagoon">Lagoon</option>
-                            <option value="estuary">Estuary</option>
-                            <option value="delta">Delta</option>
-                            <option value="peninsula">Peninsula</option>
-                            <option value="archipelago">Archipelago</option>
-                            <option value="island">Island</option>
-                            <option value="atoll">Atoll</option>
-                            <option value="reef">Reef</option>
-                            <option value="mountain">Mountain</option>
-                            <option value="hill">Hill</option>
-                            <option value="plateau">Plateau</option>
-                            <option value="plain">Plain</option>
-                            <option value="valley">Valley</option>
-                            <option value="canyon">Canyon</option>
-                            <option value="cave">Cave</option>
-                            <option value="waterfall">Waterfall</option>
-                            <option value="glacier">Glacier</option>
-                            <option value="volcano">Volcano</option>
-                            <option value="jungle">Jungle</option>
-                            <option value="swamp">Swamp</option>
-                            <option value="wetland">Wetland</option>
-                            <option value="grassland">Grassland</option>
-                            <option value="savanna">Savanna</option>
-                            <option value="tundra">Tundra</option>
-                            <option value="arctic">Arctic</option>
-                            <option value="antarctic">Antarctic</option>
-                            <option value="ocean">Ocean</option>
-                            <option value="sea">Sea</option>
-                            <option value="bay">Bay</option>
-                            <option value="gulf">Gulf</option>
-                            <option value="strait">Strait</option>
-                            <option value="channel">Channel</option>
-                            <option value="fjord">Fjord</option>
-                            <option value="lagoon">Lagoon</option>
-                            <option value="estuary">Estuary</option>
-                            <option value="delta">Delta</option>
-                            <option value="peninsula">Peninsula</option>
-                            <option value="archipelago">Archipelago</option>
-                            <option value="island">Island</option>
-                            <option value="atoll">Atoll</option>
-                            <option value="reef">Reef</option>
+                            <% const categories = ["beach", "mountains", "forest", "city", "desert", "island", "farm", "river", "valley", "canyon", "cave", "waterfall", "glacier", "volcano", "jungle", "swamp", "wetland", "grassland", "savanna", "tundra", "arctic", "antarctic", "ocean", "sea", "bay", "gulf", "strait", "lagoon", "estuary", "delta", "peninsula", "archipelago", "domes", "camping", "reef", "hill", "plateau", "plain", "channel", "fjord", "amazing pools", "boats", "atoll", "castle", "iconic city", "rooms"]; %>
+                                <% for(let category of categories) { %>
+                                    <option value="<%= category %>">
+                                        <%= category.charAt(0).toUpperCase() + category.slice(1) %>
+                                    </option>
+                                    <% } %>
                         </select>
                         <div class="invalid-feedback">Enter valid Category</div>
                     </div>

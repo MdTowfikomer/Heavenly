@@ -44,14 +44,9 @@
                         <label for="category" class="form-label">Category</label>
                         <select name="listing[category]" class="form-control" required>
                             <option value="">Select Category</option>
-                            <% const categories=[ "beach" , "mountains" , "forest" , "city" , "desert" , "island"
-                                , "lake" , "river" , "valley" , "canyon" , "cave" , "waterfall" , "glacier" , "volcano"
-                                , "jungle" , "swamp" , "wetland" , "grassland" , "savanna" , "tundra" , "arctic"
-                                , "antarctic" , "ocean" , "sea" , "bay" , "gulf" , "strait" , "channel" , "fjord"
-                                , "lagoon" , "estuary" , "delta" , "peninsula" , "archipelago" , "atoll" , "reef"
-                                , "mountain" , "hill" , "plateau" , "plain" ]; %>
+                            <% const categories = ["beach", "mountains", "forest", "city", "desert", "island", "farm", "river", "valley", "canyon", "cave", "waterfall", "glacier", "volcano", "jungle", "swamp", "wetland", "grassland", "savanna", "tundra", "arctic", "antarctic", "ocean", "sea", "bay", "gulf", "strait", "lagoon", "estuary", "delta", "peninsula", "archipelago", "domes", "camping", "reef", "hill", "plateau", "plain", "channel", "fjord", "amazing pools", "boats", "atoll", "castle", "iconic city", "rooms"]; %>
                                 <% for(let category of categories) { %>
-                                    <option value="<%= category %>" <%=listing.category===category ? "selected" : "" %> >
+                                    <option value="<%= category %>" <%= listing.category === category ? "selected" : "" %> >
                                         <%= category.charAt(0).toUpperCase() + category.slice(1) %>
                                     </option>
                                     <% } %>

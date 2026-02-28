@@ -7,7 +7,7 @@ const razorpay = new Razorpay({
 const crypto = require("crypto");
 
 module.exports.index = async (req, res) => {
-    const { q } = req.query;
+    const { q, category } = req.query;
     let allListing;
     if (q) {
         allListing = await Listing.find({
@@ -17,6 +17,13 @@ module.exports.index = async (req, res) => {
                 { country: { $regex: q, $options: "i" } }
             ]
         });
+        if (allListing.length === 0) {
+            req.flash("error", "No listings found matching your search.");
+            return res.redirect("/listings");
+        }
+    } else if (category) {
+        // if category is present, filter listings based on category
+        allListing = await Listing.find({ category });
         if (allListing.length === 0) {
             req.flash("error", "No listings found matching your search.");
             return res.redirect("/listings");
@@ -70,7 +77,7 @@ module.exports.renderEditForm = async (req, res, next) => {
     let originalImageUrl = listing.image.url;
     originalImageUrl.replace("/upload", "/upload/h_300,w_250");
     req.flash("success", "Listing updated !");
-    res.render("./listings/edit", { listing , originalImageUrl});
+    res.render("./listings/edit", { listing, originalImageUrl });
 }
 
 module.exports.updateLisiting = async (req, res) => {

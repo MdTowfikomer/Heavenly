@@ -36,7 +36,13 @@ const listingSchema = new Schema({
     },
     category: {
         type: String,
-        enum: ["beach", "mountains", "forest", "city", "desert", "island", "lake", "river", "valley", "canyon", "cave", "waterfall", "glacier", "volcano", "jungle", "swamp", "wetland", "grassland", "savanna", "tundra", "arctic", "antarctic", "ocean", "sea", "bay", "gulf", "strait", "channel", "fjord", "lagoon", "estuary", "delta", "peninsula", "archipelago", "island", "atoll", "reef", "mountain", "hill", "plateau", "plain", "valley", "canyon", "cave", "waterfall", "glacier", "volcano", "jungle", "swamp", "wetland", "grassland", "savanna", "tundra", "arctic", "antarctic", "ocean", "sea", "bay", "gulf", "strait", "channel", "fjord", "lagoon", "estuary", "delta", "peninsula", "archipelago", "island", "atoll", "reef"],
+        enum: [
+            "beach", "mountains", "forest", "city", "desert", "island", "farm", "river", "valley", "canyon", 
+            "cave", "waterfall", "glacier", "volcano", "jungle", "swamp", "wetland", "grassland", "savanna", 
+            "tundra", "arctic", "antarctic", "ocean", "sea", "bay", "gulf", "strait", "lagoon", "estuary", 
+            "delta", "peninsula", "archipelago", "domes", "camping", "reef", "hill", "plateau", "plain", 
+            "channel", "fjord", "amazing pools", "boats", "atoll", "castle", "iconic city", "rooms"
+        ],
         required: true,
     },
     reviews: [{

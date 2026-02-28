@@ -2,7 +2,6 @@
 
 Heavenly is a premium full-stack travel platform designed to bridge the gap between wanderlust and a perfectly executed plan. Built for the modern traveler, it combines a curated listing ecosystem with cutting-edge **Generative AI** to craft bespoke itineraries.
 
-
 ## 📌 Problem Statement
 Traditional travel planning is fragmented. Travelers jump between listing sites, budget spreadsheets, and manual research. **Heavenly** solves this by consolidating discovery, booking, and planning into one seamless experience. Whether you're a solo adventurer or a family planner, Heavenly provides the tools to turn a destination into a detailed, ready-to-go journey.
 
@@ -43,7 +42,6 @@ Traditional travel planning is fragmented. Travelers jump between listing sites,
 > ![Razorpay Checkout](assets/payment-screenshot.png)
 
 ### Trip Generated
-*(A screenshot of the AI-generated trip plan)*
 > ![Trip Generated](assets/trip-plan.png)
 
 ---
@@ -124,16 +122,8 @@ Heavenly/
 
 ---
 
-## 🔮 Future Improvements
-- [ ] **Real-time Notifications:** WebSocket integration for booking updates.
-- [ ] **Price Forecasting:** AI-driven insights to find the best time to book.
-- [ ] **PWA Support:** Turning Heavenly into an offline-capable mobile experience.
-- [ ] **Multi-Currency Support:** Globalizing the payment gateway.
-
----
-
 ## 📄 License
 Federated under the **ISC License**. See the `LICENSE` file for details.
 
 ---
-Developed with ❤️ by [Towfik Omer](https://github.com/MdTowfikOmer) | [Portfolio](https://github.com/MdTowfikOmer)
+Developed with ❤️ by [Towfik Omer](https://github.com/MdTowfikOmer) 

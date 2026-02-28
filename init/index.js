@@ -11,7 +11,7 @@ const MONGODB_URL = process.env.ATLASDB_URL;  // cloude db url
 
 async function main() {
     mongoose.connect(MONGODB_URL);
-}
+}   
 
 main()
     .then(() => {
